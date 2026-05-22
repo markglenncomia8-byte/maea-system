@@ -13,7 +13,7 @@
 
 <br/>
 
-> A modular, AI-powered calculator and engineering toolkit built with pure vanilla JavaScript.
+> An Engineering Calculator & Converter
 > No frameworks. No dependencies. Just clean code.
 
 </div>
