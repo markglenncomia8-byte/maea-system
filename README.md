@@ -1,39 +1,34 @@
-# maea-system
-Multi-Purpose Application for Engineering Analysis - Modular engineering toolkit with AI assistant
-<div align="center">
+
 
 # ⚫ MAEA OS
 ### Multi-Purpose Application for Engineering Analysis
 
-[![License](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](LICENSE)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![Status](https://img.shields.io/badge/Status-Active-success)](https://github.com/markglenncomia8-byte)
+[![Made in PH](https://img.shields.io/badge/Made%20in-Philippines%20🇵🇭-0038a8)](https://github.com/markglenncomia8-byte)
 
 <br/>
 
-> A modular, AI-powered calculator and engineering toolkit built as a progressive web app.  
-> Designed for students, engineers, and curious minds.
-
-<br/>
-
-![MAEA Preview](https://via.placeholder.com/800x400/0d0d0f/7c6bff?text=MAEA+OS)
+> A modular, AI-powered calculator and engineering toolkit built with pure vanilla JavaScript.
+> No frameworks. No dependencies. Just clean code.
 
 </div>
 
 ---
 
-## ✨ Features
+## ✨ Modules
 
 | Module | Description |
 |--------|-------------|
 | 🧮 **Calculator** | Standard and scientific calculations |
-| 💰 **Finance** | Simple/compound interest, loans, investment growth, budget planner, savings goal tracker, expense tracker |
-| 🌡️ **Temperature** | Convert between Celsius, Fahrenheit, and Kelvin |
-| 📏 **Converter** | Metric and Imperial unit conversion (length, mass, volume) |
+| 💰 **Finance** | Simple & compound interest, loans, investment growth, budget planner, savings goal tracker, expense tracker |
+| 🌡️ **Temperature** | Convert between Celsius, Fahrenheit and Kelvin |
+| 📏 **Converter** | Metric and Imperial unit conversion — length, mass, volume |
 | ⚛️ **Physics** | Speed, acceleration, force, kinetic energy with formula visuals |
-| 🤖 **Jarvis AI** | Built-in AI assistant powered by Claude API for physics help |
+| 🤖 **Jarvis AI** | Built-in AI assistant via OpenRouter free API |
 
 ---
 
@@ -43,6 +38,7 @@ Multi-Purpose Application for Engineering Analysis - Modular engineering toolkit
 maea-system/
 ├── index.html          # Entry point
 ├── style.css           # Global dark theme styles
+├── utils.js            # Shared utility functions
 └── js/
     ├── main.js         # App bootstrap
     ├── menu.js         # Navigation & module cards
@@ -60,8 +56,6 @@ maea-system/
 
 ## 🚀 Getting Started
 
-### Run Locally
-
 ```bash
 # Clone the repository
 git clone https://github.com/markglenncomia8-byte/maea-system.git
@@ -73,81 +67,72 @@ cd maea-system
 open index.html
 ```
 
-Or just drag `index.html` into any browser — no build tools needed!
-
-### Prerequisites
-
-- Any modern browser (Chrome, Firefox, Safari, Edge)
-- No dependencies, no npm, no frameworks
+No build tools, no npm, no setup — just open `index.html` in any browser and it works.
 
 ---
 
 ## 🤖 Jarvis AI Setup
 
-MAEA has a built-in AI assistant called **Jarvis** powered by a free AI model via **OpenRouter**.
+MAEA has a built-in AI assistant called **Jarvis** powered by a free model via **OpenRouter**.
 
-1. Get your free API key from [openrouter.ai](https://openrouter.ai)
-2. Open `js/claude.js`
-3. Replace the API key placeholder with your key
+1. Get your free API key from [openrouter.ai](https://openrouter.ai) — no credit card needed
+2. Open `claude.js`
+3. Replace the placeholder with your key:
 
 ```js
 const API_KEY = "your-openrouter-key-here"; // sk-or-v1-...
 ```
 
-> Uses a free model from OpenRouter — no credit card needed!
-
 ---
 
 ## 🎨 Design
 
-- **Dark theme** with gradient module cards
-- **Glassy UI** with backdrop blur effects
+- **Dark theme** with per-module gradient cards
+- **Glassy UI** with backdrop blur and frosted effects
 - **Mobile-first** responsive layout
 - **Plus Jakarta Sans** typography
-- **No frameworks** — pure vanilla CSS
+- **Zero frameworks** — pure vanilla CSS and JS
 
 ---
 
-## 📜 License
+## 📜 License — AGPL-3.0
 
-This project is licensed under **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)**.
-
-### What this means:
+This project is licensed under the **GNU Affero General Public License v3.0**.
 
 | ✅ Allowed | ❌ Not Allowed |
 |-----------|--------------|
-| View and study the code | Copy and sell as your own |
-| Fork for personal use | Use commercially without permission |
-| Collaborate (message me first) | Redistribute without credit |
-| Learn from it | Claim ownership |
+| Use and study the code | Use in closed-source projects |
+| Fork for personal use | Distribute without sharing source |
+| Modify and improve | Claim ownership |
+| Collaborate (open an issue first) | Use commercially without open sourcing |
 
-> Want to collaborate or use this commercially? **Open an issue or contact me directly.**
+> If you modify and distribute this project — even as a web service — you **must** release your source code under AGPL-3.0.
+
+Full license: [GNU AGPL-3.0](https://www.gnu.org/licenses/agpl-3.0.html)
 
 ---
 
-## 🤝 Collaboration
+## 🤝 Want to Collaborate?
 
-Collaboration is welcome! But please **message me first** before submitting a PR.
+Collaboration is welcome! But **please open an issue first** before submitting a PR.
 
 1. Open an [Issue](https://github.com/markglenncomia8-byte/maea-system/issues) describing your idea
-2. Wait for approval
+2. Wait for my approval
 3. Fork the repo
 4. Create your branch: `git checkout -b feature/your-feature`
-5. Commit your changes: `git commit -m 'Add your feature'`
-6. Push and open a Pull Request
+5. Commit: `git commit -m "Add your feature"`
+6. Open a Pull Request
 
 ---
 
 ## 👨‍💻 Author
 
-**markglenncomia8-byte**  
-13 years old · Filipino developer · Building for the future
-
-[![GitHub](https://img.shields.io/badge/GitHub-markglenncomia8--byte-181717?logo=github)](https://github.com/markglenncomia8-byte)
+**Prince** · [@markglenncomia8-byte](https://github.com/markglenncomia8-byte)
+Filipino developer · Building MAEA OS and beyond 🇵🇭
 
 ---
 
 <div align="center">
-  <sub>Built with 💜 and vanilla JS · No frameworks were harmed in the making of this project</sub>
+  <sub>Built with 💜 using pure vanilla JS · Zero frameworks · Zero dependencies</sub>
 </div>
 
