@@ -1,7 +1,8 @@
 
 
 # ⚫ MAEA OS
-### Multi-Purpose Application for Engineering Analysis
+### Multi-Purpose Application for Engineering Analysis 
+### MAEA - Engineering Calculator & Converter
 
 [![License](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](LICENSE)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
