@@ -1,0 +1,698 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* =========================
+   🎨 TOKENS
+========================= */
+:root {
+    --bg: #0a0a0f;
+    --card: rgba(255,255,255,0.05);
+    --card-border: rgba(255,255,255,0.10);
+    --card-hover: rgba(255,255,255,0.09);
+
+    --text: #ffffff;
+    --text-sub: rgba(255,255,255,0.5);
+
+    --radius: 22px;
+    --radius-sm: 14px;
+
+    --font: 'Plus Jakarta Sans', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+
+    /* Gradients per module */
+    --g-calc:    linear-gradient(135deg, #667eea, #764ba2);
+    --g-finance: linear-gradient(135deg, #f093fb, #f5576c);
+    --g-temp:    linear-gradient(135deg, #4facfe, #00f2fe);
+    --g-convert: linear-gradient(135deg, #43e97b, #38f9d7);
+    --g-physics: linear-gradient(135deg, #fa709a, #fee140);
+
+    --accent: #7c6bff;
+    --accent-glow: rgba(124,107,255,0.4);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(124,107,255,0.25) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 90% 100%, rgba(240,93,251,0.15) 0%, transparent 60%);
+}
+
+/* =========================
+   APP SHELL
+========================= */
+#app {
+    max-width: 430px;
+    margin: 0 auto;
+    min-height: 100vh;
+    padding: 0 16px 40px;
+}
+
+#content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 0 24px;
+    gap: 12px;
+}
+
+#content > * { width: 100%; max-width: 400px; }
+
+/* =========================
+   HEADER
+========================= */
+.app-header {
+    padding: 52px 0 8px;
+    text-align: center;
+}
+
+.app-header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, #fff 40%, rgba(255,255,255,0.5));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.app-header p {
+    font-size: 13px;
+    color: var(--text-sub);
+    margin-top: 6px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+/* =========================
+   MODULE CARDS (MENU)
+========================= */
+.module-card {
+    position: relative;
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+    min-height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-bottom: 12px;
+}
+
+.module-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    opacity: 1;
+    z-index: 0;
+}
+
+/* noise grain texture */
+.module-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+    opacity: 0.5;
+    z-index: 1;
+    mix-blend-mode: overlay;
+}
+
+.module-card:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.module-card:active { transform: scale(0.98); }
+
+.module-card .card-icon {
+    font-size: 36px;
+    position: absolute;
+    top: 22px;
+    right: 24px;
+    z-index: 2;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+}
+
+.module-card .card-title {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: white;
+    z-index: 2;
+    position: relative;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+.module-card .card-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 500;
+    z-index: 2;
+    position: relative;
+    margin-top: 3px;
+}
+
+/* card gradients */
+.mc-calc    { background: var(--g-calc); }
+.mc-finance { background: var(--g-finance); }
+.mc-temp    { background: var(--g-temp); }
+.mc-convert { background: var(--g-convert); }
+.mc-physics { background: var(--g-physics); }
+
+/* =========================
+   SUB-CARDS (converter picker etc)
+========================= */
+.sub-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.sub-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 24px 16px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text);
+    transition: all 0.18s ease;
+    backdrop-filter: blur(10px);
+}
+
+.sub-card:hover {
+    background: var(--card-hover);
+    border-color: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+}
+
+.sub-card:active { transform: scale(0.96); }
+
+.sub-card .sub-icon { font-size: 28px; display: block; margin-bottom: 8px; }
+
+/* =========================
+   PAGE TITLE
+========================= */
+.page-title {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    text-align: left;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 8px;
+    padding: 8px 0 0;
+}
+
+/* =========================
+   INPUTS
+========================= */
+input, select {
+    width: 100%;
+    font-family: var(--font);
+    font-size: 16px;
+    font-weight: 500;
+    padding: 16px 18px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--card-border);
+    background: rgba(255,255,255,0.06);
+    color: var(--text);
+    outline: none;
+    transition: all 0.2s ease;
+    -webkit-appearance: none;
+    appearance: none;
+    backdrop-filter: blur(10px);
+}
+
+input::placeholder { color: var(--text-sub); }
+
+input:focus, select:focus {
+    border-color: rgba(124,107,255,0.6);
+    background: rgba(255,255,255,0.09);
+    box-shadow: 0 0 0 3px rgba(124,107,255,0.2);
+}
+
+/* =========================
+   SELECT WRAP
+========================= */
+.select-wrap {
+    position: relative;
+    width: 100%;
+}
+
+.select-wrap::after {
+    content: "▾";
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-sub);
+    font-size: 13px;
+    pointer-events: none;
+}
+
+/* =========================
+   SELECTS ROW (horizontal)
+========================= */
+.selects-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.selects-row .select-wrap { flex: 1; }
+
+.selects-row .select-wrap select { width: 100%; }
+
+.arrow {
+    font-size: 18px;
+    color: var(--text-sub);
+    flex-shrink: 0;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+button {
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 700;
+    padding: 16px 24px;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    width: 100%;
+}
+
+.convert-btn {
+    background: linear-gradient(135deg, #7c6bff, #a855f7);
+    color: white;
+    box-shadow: 0 8px 32px rgba(124,107,255,0.4);
+    letter-spacing: 0.2px;
+}
+
+.convert-btn:hover {
+    box-shadow: 0 12px 40px rgba(124,107,255,0.6);
+    transform: translateY(-1px);
+}
+
+.convert-btn:active { transform: scale(0.97); }
+
+.back-btn {
+    background: rgba(255,255,255,0.07);
+    color: var(--text-sub);
+    border: 1px solid var(--card-border);
+    font-weight: 600;
+    font-size: 14px;
+    width: auto;
+    padding: 11px 22px;
+    border-radius: 99px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.back-btn:hover {
+    background: rgba(255,255,255,0.11);
+    color: var(--text);
+}
+
+/* =========================
+   RESULT BOX
+========================= */
+#res {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    padding: 18px;
+    font-size: 22px;
+    font-weight: 700;
+    font-family: var(--mono);
+    color: #7efff5;
+    text-align: center;
+    letter-spacing: -0.5px;
+    backdrop-filter: blur(10px);
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================
+   CALCULATOR
+========================= */
+.calc-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.num, .op, .eq, .clear {
+    padding: 18px 10px;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: var(--mono);
+    transition: all 0.12s ease;
+    width: auto;
+}
+
+.num {
+    background: rgba(255,255,255,0.08);
+    color: var(--text);
+    border: 1px solid var(--card-border);
+}
+
+.op {
+    background: rgba(124,107,255,0.18);
+    color: #a78bff;
+    border: 1px solid rgba(124,107,255,0.25);
+}
+
+.eq {
+    background: linear-gradient(135deg, #7c6bff, #a855f7);
+    color: white;
+    box-shadow: 0 4px 20px rgba(124,107,255,0.5);
+}
+
+.clear {
+    background: rgba(255,80,80,0.12);
+    color: #ff8080;
+    border: 1px solid rgba(255,80,80,0.2);
+}
+
+.num:hover  { background: rgba(255,255,255,0.13); }
+.op:hover   { background: rgba(124,107,255,0.28); }
+.eq:hover   { box-shadow: 0 6px 28px rgba(124,107,255,0.7); }
+.clear:hover{ background: rgba(255,80,80,0.22); }
+
+.num:active, .op:active, .eq:active, .clear:active { transform: scale(0.91); }
+
+/* calculator display */
+#display {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    font-family: var(--mono);
+    font-size: 32px;
+    font-weight: 500;
+    text-align: right;
+    color: var(--text);
+    width: 100%;
+    max-width: 400px;
+    min-height: 72px;
+    letter-spacing: -1px;
+    word-break: break-all;
+}
+
+/* =========================
+   FINANCE / SLIDER
+========================= */
+#slider {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    backdrop-filter: blur(10px);
+}
+
+#sliderControls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 8px 0;
+}
+
+#sliderControls button {
+    width: auto;
+    padding: 8px 18px;
+    border-radius: 99px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid var(--card-border);
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+    font-family: var(--font);
+}
+
+#sliderControls button:hover { background: rgba(255,255,255,0.14); }
+
+#sliderControls span {
+    font-weight: 700;
+    color: var(--text);
+    font-size: 15px;
+    min-width: 32px;
+    text-align: center;
+}
+
+.item-row {
+    display: flex;
+    gap: 8px;
+}
+
+.item-row input { flex: 1; }
+
+/* =========================
+   FILE CARD
+========================= */
+.file-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 10px;
+    transition: all 0.2s ease;
+}
+
+.file-card:hover {
+    border-color: rgba(255,255,255,0.18);
+    transform: translateY(-2px);
+}
+
+.file-card h4 {
+    color: #7efff5;
+    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+/* =========================
+   FORMULA IMAGE
+========================= */
+.formula-img {
+    display: block;
+    max-width: 260px;
+    width: 100%;
+    height: auto;
+    margin: 12px auto;
+    border-radius: 12px;
+    filter: invert(1) brightness(0.8);
+    opacity: 0.85;
+}
+
+/* =========================
+   SECTION LABEL
+========================= */
+.section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-sub);
+}
+
+/* =========================
+   AI STATUS
+========================= */
+.ai-status {
+    font-size: 12px;
+    color: var(--text-sub);
+    letter-spacing: 0.8px;
+    animation: pulse 3s ease infinite;
+}
+
+@keyframes pulse {
+    0%,100% { opacity: 0.4; }
+    50% { opacity: 1; }
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 99px; }
+
+/* =========================
+   RESULT BOX (finance/physics)
+========================= */
+.result-box {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #7efff5;
+    text-align: center;
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.6;
+    width: 100%;
+    margin-top: 4px;
+}
+
+/* Gap between stacked inputs */
+#financeBox input,
+#financeBox button,
+#phyBox input,
+#phyBox button,
+#phyBox .result-box,
+#financeBox .result-box {
+    margin-bottom: 10px;
+    display: block;
+    width: 100%;
+}
+
+/* sub-grid icon size */
+.sub-card .sub-icon {
+    font-size: 26px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* chatHistory text */
+#chatHistory p {
+    margin: 4px 0;
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+}
+
+#chatHistory b { color: #7c6bff; }
+
+/* =========================
+   EXPENSE TRACKER FIXES
+========================= */
+#financeBox {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+}
+
+#financeBox input,
+#financeBox button,
+#financeBox .result-box,
+#financeBox .page-title {
+    width: 100%;
+    display: block;
+    margin-bottom: 0;
+}
+
+#sliderControls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+}
+
+#sliderControls button {
+    flex: 1;
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--text);
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: 16px;
+    width: auto;
+}
+
+#sliderControls button:hover {
+    background: rgba(255,255,255,0.14);
+}
+
+#sliderControls span {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text-sub);
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.file-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text);
+}
+
+.file-card h4 {
+    color: #7efff5;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+}
+
+.item-row {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.item-row input {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+/* Ghost button variant */
+.ghost-btn {
+    background: rgba(255,255,255,0.07) !important;
+    box-shadow: none !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
+    color: rgba(255,255,255,0.8) !important;
+}
+.ghost-btn:hover {
+    background: rgba(255,255,255,0.12) !important;
+}
